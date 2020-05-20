@@ -9,7 +9,9 @@ namespace TrashCollector.Models
     public class Account
     {
         [Key]
+        [Display(Name = "Account ID")]
         public int AccountId { get; set; }
+        [Display(Name = "Balance")]
         public double Balance
         {
             get => Math.Round(Balance, 2);
