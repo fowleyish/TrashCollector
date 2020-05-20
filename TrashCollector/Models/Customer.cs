@@ -31,7 +31,7 @@ namespace TrashCollector.Models
         public Address Address { get; set; }
         [ForeignKey("User")]
         [Display(Name = "User ID")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public IdentityUser User { get; set; }
     }
 }
