@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TrashCollector.Data;
 using TrashCollector.Models;
 using TrashCollector.ViewModels;
@@ -25,15 +27,35 @@ namespace TrashCollector.Controllers
         public ActionResult FirstTimeSetup()
         {
             var FirstTimeSetupViewModel = new FirstTimeSetupViewModel();
+            var daysList = _context.Days.ToList();
+            FirstTimeSetupViewModel.DaysOfWeek = new SelectList(daysList, "DayId", "DayOfWeek");
             return View(FirstTimeSetupViewModel);
         }
 
         // POST: Create customer in Customers table
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FirstTimeSetup(Customer customer)
+        public ActionResult FirstTimeSetup(FirstTimeSetupViewModel data)
         {
-            _context.Customers.Add(customer);
+            var newAddress = new Address();
+            newAddress.Street = data.Street;
+            newAddress.City = data.City;
+            newAddress.State = data.State;
+            newAddress.Zip = data.Zip;
+            _context.Addresses.Add(newAddress);
+            _context.SaveChanges();
+            var newAccount = new Account();
+            newAccount.Balance = 0;
+            _context.Accounts.Add(newAccount);
+            _context.SaveChanges();
+            var newCustomer = new Customer();
+            newCustomer.Id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            newCustomer.FirstName = data.FirstName;
+            newCustomer.LastName = data.LastName;
+            newCustomer.DayId = _context.Days.Where(x => x.DayId == int.Parse(data.DayOfWeek)).Select(x => x.DayId).FirstOrDefault();
+            newCustomer.AddressId = newAddress.AddressId;
+            newCustomer.AccountId = newAccount.AccountId;
+            _context.Customers.Add(newCustomer);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -45,7 +67,7 @@ namespace TrashCollector.Controllers
             var user = _context.Users.Where(x => x.Id == userId).SingleOrDefault();
             try
             {
-                var customer = _context.Customers.Where(x => x.CustomerId.ToString() == user.Id).Single();
+                var customer = _context.Customers.Where(x => x.Id == user.Id).SingleOrDefault();
                 return View(customer);
             }
             catch
