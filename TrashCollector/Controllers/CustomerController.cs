@@ -73,6 +73,10 @@ namespace TrashCollector.Controllers
                 var daysList = _context.Days.ToList();
                 customerDashBoardViewModel.DaysOfWeek = new SelectList(daysList, "DayId", "DayOfWeek");
                 customerDashBoardViewModel.DayOfWeek = _context.Days.Where(x => x.DayId == customer.DayId).Select(x => x.DayOfWeek).FirstOrDefault();
+                customerDashBoardViewModel.Street = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.Street).FirstOrDefault();
+                customerDashBoardViewModel.City = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.City).FirstOrDefault();
+                customerDashBoardViewModel.State = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.State).FirstOrDefault();
+                customerDashBoardViewModel.Zip = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.Zip).FirstOrDefault();
                 return View(customerDashBoardViewModel);
             }
             catch

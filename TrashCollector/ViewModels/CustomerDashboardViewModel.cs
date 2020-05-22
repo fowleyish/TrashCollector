@@ -13,5 +13,9 @@ namespace TrashCollector.ViewModels
         public string DayOfWeek { get; set; }
         public SelectList DaysOfWeek { get; set; }
         public string SelectedDay { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
     }
 }
