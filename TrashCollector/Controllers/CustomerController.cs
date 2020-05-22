@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TrashCollector.Data;
 using TrashCollector.Models;
+using TrashCollector.ViewModels;
 
 namespace TrashCollector.Controllers
 {
@@ -23,8 +24,8 @@ namespace TrashCollector.Controllers
         // GET: First time setup for new customer
         public ActionResult FirstTimeSetup()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View(userId);
+            var FirstTimeSetupViewModel = new FirstTimeSetupViewModel();
+            return View(FirstTimeSetupViewModel);
         }
 
         // POST: Create customer in Customers table
@@ -42,14 +43,14 @@ namespace TrashCollector.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.Users.Where(x => x.Id == userId).SingleOrDefault();
-            var customer = _context.Customers.Where(x => x.CustomerId.ToString() == user.Id).Single();
-            if (customer == null)
+            try
+            {
+                var customer = _context.Customers.Where(x => x.CustomerId.ToString() == user.Id).Single();
+                return View(customer);
+            }
+            catch
             {
                 return RedirectToAction(nameof(FirstTimeSetup));
-            }
-            else
-            {
-                return View();
             }
         }
 
