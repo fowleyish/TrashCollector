@@ -85,6 +85,51 @@ namespace TrashCollector.Controllers
             }
         }
 
+        // GET: UpdateContactInfo view
+        public ActionResult UpdateContactInfo()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
+            var userToUpdate = new FirstTimeSetupViewModel();
+            userToUpdate.FirstName = customer.FirstName;
+            userToUpdate.LastName = customer.LastName;
+            userToUpdate.Street = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.Street).SingleOrDefault();
+            userToUpdate.City = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.City).SingleOrDefault();
+            userToUpdate.State = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.State).SingleOrDefault();
+            userToUpdate.Zip = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.Zip).SingleOrDefault();
+            return View(userToUpdate);
+        }
+
+        // POST: UpdateContactInfo from input
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateContactInfo(FirstTimeSetupViewModel userToUpdate)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
+            var customersAddress = _context.Addresses.Where(x => x.AddressId == customer.AddressId).SingleOrDefault();
+            customer.FirstName = userToUpdate.FirstName;
+            customer.LastName = userToUpdate.LastName;
+            customersAddress.Street = userToUpdate.Street;
+            customersAddress.City = userToUpdate.City;
+            customersAddress.State = userToUpdate.State;
+            customersAddress.Zip = userToUpdate.Zip;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateDay(string newDay)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
+            var customersDayId = _context.Days.Where(x => x.DayOfWeek == newDay).Select(x => x.DayId).SingleOrDefault();
+            customer.DayId = customersDayId;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {

@@ -10,30 +10,19 @@
 <div>
     <h4>Customer</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.LastName)
-        </dd>
-    </dl>
 
 
     <div id="customerDashboard">
+
+
         <div id="greeting">
             Hello, 
             <span id="firstName">
-                @Html.DisplayFor(model => model.Customer.FirstName)
-                !
+                @Html.DisplayFor(model => model.Customer.FirstName)!
             </span>
         </div>
+
+
         <div id="customerDetails">
             <div id="nameContainer">
                 @Html.DisplayFor(model => model.Customer.FirstName)
@@ -48,7 +37,10 @@
                 @Html.DisplayFor(model => model.Street) <br />
                 @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip)
             </div>
+            <a asp-action="UpdateContactInfo" class="btn btn-primary">Update</a>
         </div>
+
+
         <form asp-action="UpdateDay">
             <div class="form-group">
                 <h4>Pickup Day</h4>
@@ -60,8 +52,8 @@
                         @foreach (var day in Model.DaysOfWeek)
                         {
                             <div class="col">
-                                @Html.RadioButtonFor(model => model.SelectedDay, day.Text[0].ToString(), new { id = day.Text+"RadioBtn", value = day})
                                 @Html.LabelFor(model => model.SelectedDay, day.Text[0].ToString())
+                                @Html.RadioButtonFor(model => model.SelectedDay, day.Text[0].ToString(), new { id = day.Text + "RadioBtn", value = day })
                             </div>
                         }
                     </div>
