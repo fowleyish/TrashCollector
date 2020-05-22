@@ -33,5 +33,8 @@ namespace TrashCollector.Models
         [Display(Name = "User ID")]
         public string Id { get; set; }
         public IdentityUser User { get; set; }
+        public DateTime SuspendStart { get; set; }
+        public DateTime SuspendEnd { get; set; }
+        public DateTime SpecialPickup { get; set; }
     }
 }

@@ -68,7 +68,12 @@ namespace TrashCollector.Controllers
             try
             {
                 var customer = _context.Customers.Where(x => x.Id == user.Id).SingleOrDefault();
-                return View(customer);
+                var customerDashBoardViewModel = new CustomerDashboardViewModel();
+                customerDashBoardViewModel.Customer = customer;
+                var daysList = _context.Days.ToList();
+                customerDashBoardViewModel.DaysOfWeek = new SelectList(daysList, "DayId", "DayOfWeek");
+                customerDashBoardViewModel.DayOfWeek = _context.Days.Where(x => x.DayId == customer.DayId).Select(x => x.DayOfWeek).FirstOrDefault();
+                return View(customerDashBoardViewModel);
             }
             catch
             {
