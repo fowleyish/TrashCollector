@@ -122,11 +122,11 @@ namespace TrashCollector.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateDay(string newDay)
+        public ActionResult UpdateDay(CustomerDashboardViewModel thisCustomer)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
-            var customersDayId = _context.Days.Where(x => x.DayOfWeek == newDay).Select(x => x.DayId).SingleOrDefault();
+            var customersDayId = _context.Days.Where(x => x.DayOfWeek == thisCustomer.SelectedDay).Select(x => x.DayId).SingleOrDefault();
             customer.DayId = customersDayId;
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -135,11 +135,11 @@ namespace TrashCollector.Controllers
         // POST: Special pickup date
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RequestSpecialPickupDate(DateTime date)
+        public ActionResult RequestSpecialPickupDate(CustomerDashboardViewModel thisCustomer)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
-            customer.SpecialPickup = date;
+            customer.SpecialPickup = thisCustomer.SpecialPickup;
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
@@ -147,12 +147,12 @@ namespace TrashCollector.Controllers
         // POST: Suspend Services
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuspendServices(DateTime startDate, DateTime endDate)
+        public ActionResult SuspendServices(CustomerDashboardViewModel thisCustomer)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
-            customer.SuspendStart = startDate;
-            customer.SuspendEnd = endDate;
+            customer.SuspendStart = thisCustomer.SuspendStart;
+            customer.SuspendEnd = thisCustomer.SuspendEnd;
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

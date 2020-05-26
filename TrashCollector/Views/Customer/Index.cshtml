@@ -8,77 +8,81 @@
 <h1>Index</h1>
 
 <div>
-    <h4>Customer</h4>
+    <div id="greeting">
+        Hello,
+        <span id="firstName">
+            @Html.DisplayFor(model => model.Customer.FirstName)!
+        </span>
+    </div>
+
     <hr />
 
 
     <div id="customerDashboard">
 
 
-        <div id="greeting">
-            Hello,
-            <span id="firstName">
-                @Html.DisplayFor(model => model.Customer.FirstName)!
-            </span>
+        <div id="customerDetails" class="panel panel-default">
+            <div class="panel panel-body">
+                <div id="nameContainer">
+                    @Html.DisplayFor(model => model.Customer.FirstName)
+                    <span>
+                        @Html.DisplayFor(model => model.Customer.LastName)
+                    </span>
+                </div>
+                <div id="customerId">
+                    Member ID: @Html.DisplayFor(model => model.Customer.CustomerId)
+                </div>
+                <div id="addressInfo">
+                    @Html.DisplayFor(model => model.Street) <br />
+                    @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip)
+                </div>
+                <a asp-action="UpdateContactInfo" class="btn btn-primary">Update</a>
+            </div>
         </div>
 
 
-        <div id="customerDetails">
-            <div id="nameContainer">
-                @Html.DisplayFor(model => model.Customer.FirstName)
-                <span>
-                    @Html.DisplayFor(model => model.Customer.LastName)
-                </span>
-            </div>
-            <div id="customerId">
-                Member ID: @Html.DisplayFor(model => model.Customer.CustomerId)
-            </div>
-            <div id="addressInfo">
-                @Html.DisplayFor(model => model.Street) <br />
-                @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip)
-            </div>
-            <a asp-action="UpdateContactInfo" class="btn btn-primary">Update</a>
-        </div>
-
-
-        <form asp-action="UpdateDay">
+        <form asp-action="UpdateDay" class="panel panel-default">
             <div class="form-group">
-                <h4>Pickup Day</h4>
-                <div>
-                    Your pickup day is <span id="yourPickupDay">@Html.DisplayFor(model => model.DayOfWeek)</span>
-                </div>
-                <div id="dayOptions">
-                    <div class="row">
-                        @foreach (var day in Model.DaysOfWeek)
-                        {
-                            <div class="col">
-                                @Html.LabelFor(model => model.SelectedDay, day.Text[0].ToString())
-                                @Html.RadioButtonFor(model => model.SelectedDay, day.Text[0].ToString(), new { id = day.Text + "RadioBtn", value = day })
-                            </div>
-                        }
+                <h4 class="panel panel-heading">Pickup Day</h4>
+                <div class="panel panel-body">
+                    <div>
+                        Your pickup day is <span id="yourPickupDay">@Html.DisplayFor(model => model.DayOfWeek)</span>
                     </div>
+                    <div id="dayOptions">
+                        <div class="row">
+                            @foreach (var day in Model.DaysOfWeek)
+                            {
+                                <div class="col">
+                                    @Html.LabelFor(model => model.SelectedDay, day.Text)
+                                    @Html.RadioButtonFor(model => model.SelectedDay, day.Text, new { id = day.Text + "RadioBtn", value = day })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-primary" />
                 </div>
-                <a asp-action="UpdateDay" asp-route-id="@Model.SelectedDay" class="btn btn-primary">Update</a>
             </div>
         </form>
 
 
 
-        <form asp-action="RequestSpecialPickupDate">
+        <form asp-action="RequestSpecialPickupDate" class="panel panel-default">
             <div class="form-group" id="specialPickupDateForm">
-                <h4>Request a special pickup date</h4>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="calIcon-2">
-                            <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
-                                <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                            </svg>
-                        </span>
+                <h4 class="panel panel-heading">Request a special pickup date</h4>
+                <div class="panel panel-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="calIcon-2">
+                                <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                    <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <input asp-for="SpecialPickup" class="form-control" id="specialPickupDate" data-provide="datepicker" name="SpecialPickup" value="" placeholder="MM/DD/YYYY" type="text" />
                     </div>
-                    <input asp-for="SpecialPickup" class="form-control" id="specialPickupDate" data-provide="datepicker" name="specialPickupDate" placeholder="MM/DD/YYYY" type="text" />
+                    <input type="submit" value="Submit request" class="btn btn-primary"/>
                 </div>
-                <input type="submit" value="Submit request" class="btn btn-primary" />
             </div>
         </form>
 
@@ -86,39 +90,43 @@
 
 
 
-        <form asp-action="SuspendServices">
+        <form asp-action="SuspendServices" class="panel panel-default">
             <div class="form-group" id="suspendServicesForm">
-                <h4>Suspend services</h4>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="calIcon-1">
-                            <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
-                                <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                            </svg>
-                        </span>
+                <h4 class="panel panel-heading">Suspend services</h4>
+                <div class="panel panel-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="calIcon-1">
+                                <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                    <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <input asp-for="SuspendStart" class="form-control" id="suspendStartDate" data-provide="datepicker" name="SuspendStart" placeholder="Start date" value="" type="text" aria-describedby="calIcon-1" />
                     </div>
-                    <input asp-for="SuspendStart" class="form-control" id="suspendStartDate" data-provide="datepicker" name="suspendStartDate" placeholder="Start date" type="text" aria-describedby="calIcon-1" />
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="calIcon-2">
-                            <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
-                                <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                            </svg>
-                        </span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="calIcon-2">
+                                <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                    <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <input asp-for="SuspendEnd" class="form-control" id="suspendEndDate" data-provide="datepicker" name="SuspendEnd" placeholder="End date" value="" type="text" aria-describedby="calIcon-2"/>
                     </div>
-                    <input asp-for="SuspendEnd" class="form-control" id="suspendEndDate" data-provide="datepicker" name="suspendEndDate" placeholder="End date" type="text" aria-describedby="calIcon-2"/>
+                    <input type="submit" value="Submit" class="btn btn-primary" />
                 </div>
-                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
         </form>
 
-        <div id="myBalance">
-            <h4>My Balance</h4>
-            <div id="balanceAmt">@Html.DisplayFor(x => x.AccountBalanceFormatted)</div>
-            <a class="btn btn-primary">Pay</a>
+        <div id="myBalance" class="panel panel-default">
+            <h4 class="panel panel-heading">My Balance</h4>
+            <div class="panel panel-body">
+                <div id="balanceAmt">@Html.DisplayFor(x => x.AccountBalanceFormatted)</div>
+                <a class="btn btn-primary">Pay</a>
+            </div>
         </div>
 
     </div>
