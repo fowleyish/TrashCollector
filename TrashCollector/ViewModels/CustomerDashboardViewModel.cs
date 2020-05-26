@@ -20,5 +20,7 @@ namespace TrashCollector.ViewModels
         public DateTime SpecialPickup { get; set; }
         public DateTime SuspendStart { get; set; }
         public DateTime SuspendEnd { get; set; }
+        public double AccountBalance { get; set; }
+        public string AccountBalanceFormatted { get; set; }
     }
 }

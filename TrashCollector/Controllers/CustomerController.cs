@@ -77,6 +77,8 @@ namespace TrashCollector.Controllers
                 customerDashBoardViewModel.City = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.City).FirstOrDefault();
                 customerDashBoardViewModel.State = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.State).FirstOrDefault();
                 customerDashBoardViewModel.Zip = _context.Addresses.Where(x => x.AddressId == customer.AddressId).Select(x => x.Zip).FirstOrDefault();
+                customerDashBoardViewModel.AccountBalance = _context.Accounts.Where(x => x.AccountId == customer.AccountId).Select(x => x.Balance).FirstOrDefault();
+                customerDashBoardViewModel.AccountBalanceFormatted = customerDashBoardViewModel.AccountBalance.ToString("C2");
                 return View(customerDashBoardViewModel);
             }
             catch

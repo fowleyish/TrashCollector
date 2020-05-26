@@ -62,6 +62,8 @@
             </div>
         </form>
 
+
+
         <form asp-action="RequestSpecialPickupDate">
             <div class="form-group" id="specialPickupDateForm">
                 <h4>Request a special pickup date</h4>
@@ -79,6 +81,10 @@
                 <input type="submit" value="Submit request" class="btn btn-primary" />
             </div>
         </form>
+
+
+
+
 
         <form asp-action="SuspendServices">
             <div class="form-group" id="suspendServicesForm">
@@ -109,10 +115,13 @@
             </div>
         </form>
 
+        <div id="myBalance">
+            <h4>My Balance</h4>
+            <div id="balanceAmt">@Html.DisplayFor(x => x.AccountBalanceFormatted)</div>
+            <a class="btn btn-primary">Pay</a>
+        </div>
+
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 
