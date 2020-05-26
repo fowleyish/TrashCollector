@@ -130,6 +130,18 @@ namespace TrashCollector.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Special pickup date
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RequestSpecialPickupDate(DateTime date)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
+            customer.SpecialPickup = date;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {

@@ -17,5 +17,8 @@ namespace TrashCollector.ViewModels
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+        public DateTime SpecialPickup { get; set; }
+        public DateTime SuspendStart { get; set; }
+        public DateTime SuspendEnd { get; set; }
     }
 }

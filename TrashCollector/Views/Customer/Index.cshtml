@@ -16,7 +16,7 @@
 
 
         <div id="greeting">
-            Hello, 
+            Hello,
             <span id="firstName">
                 @Html.DisplayFor(model => model.Customer.FirstName)!
             </span>
@@ -61,8 +61,21 @@
                 <a asp-action="UpdateDay" asp-route-id="@Model.SelectedDay" class="btn btn-primary">Update</a>
             </div>
         </form>
+
+        <form asp-action="RequestSpecialPickupDate">
+            <div class="form-group" id="specialPickupDateForm">
+                <h4>Request a special pickup date</h4>
+                <input asp-for="SpecialPickup" class="form-control" id="specialPickupDate" data-provide="datepicker" name="specialPickupDate" placeholder="MM/DD/YYYY" type="text" />
+                <input type="submit" value="Submit request" class="btn btn-primary"/>
+            </div>
+        </form>
     </div>
 </div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.css" />
