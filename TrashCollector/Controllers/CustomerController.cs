@@ -142,6 +142,19 @@ namespace TrashCollector.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Suspend Services
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuspendServices(DateTime startDate, DateTime endDate)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(x => x.Id == userId).SingleOrDefault();
+            customer.SuspendStart = startDate;
+            customer.SuspendEnd = endDate;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
