@@ -50,7 +50,7 @@
                                 @Html.DisplayFor(x => stop.City), @Html.DisplayFor(x => stop.State) @Html.DisplayFor(x => stop.Zip)
                             </div>
                             <div class="completeButton">
-                                <a class="btn btn-primary">Complete</a>
+                                <a class="btn btn-primary" asp-action="CompleteStop" asp-route-id="@stop.PickupId">Complete</a>
                             </div>
                         </div>
                     }
