@@ -67,19 +67,39 @@ namespace TrashCollector.Controllers
                 int todayId = _context.Days.Where(x => x.DayOfWeek == dayOfWeek).Select(x => x.DayId).FirstOrDefault();
                 employeeDashboardViewModel.Employee = employee;
                 employeeDashboardViewModel.Zip = _context.Addresses.Where(x => x.AddressId == employee.AddressId).Select(x => x.Zip).FirstOrDefault();
-                List<int> stopAddressIds = _context.Customers.Where(x => x.DayId == todayId).Select(x => x.AddressId).ToList();
-                List<Address> stopAddresses = new List<Address>();
-                foreach (var address in stopAddressIds)
+                if (_context.TodayPickups.Where(x => x.Date == DateTime.Today).FirstOrDefault() == null)
                 {
-                    stopAddresses.Add(_context.Addresses.Where(x => x.AddressId == address).FirstOrDefault());
+                    BuildScheduleForToday(todayId);
                 }
-                employeeDashboardViewModel.Stops = stopAddresses.Where(x => x.Zip == employeeDashboardViewModel.Zip).ToList();
-                return View(employeeDashboardViewModel);
+                employeeDashboardViewModel.Stops = _context.TodayPickups.Where(x => x.Date == DateTime.Today && x.Completed == false && x.Zip == employeeDashboardViewModel.Zip).ToList();
+                return View(employeeDashboardViewModel); 
             }
             catch
             {
                 return RedirectToAction(nameof(NewEmployeeSetup));
             }
+        }
+
+        // Helper method to create stop rows in TodayPickups
+        private void BuildScheduleForToday(int todayId)
+        {
+            List<int> stopAddressIds = _context.Customers.Where(x => x.DayId == todayId || x.SpecialPickup == DateTime.Today && !( DateTime.Today < x.SuspendEnd && DateTime.Today > x.SuspendStart )).Select(x => x.AddressId).ToList();
+            List<Address> stopAddresses = new List<Address>(); 
+            foreach (var address in stopAddressIds)
+            {
+                stopAddresses.Add(_context.Addresses.Where(x => x.AddressId == address).FirstOrDefault());
+            }
+            foreach (var stop in stopAddresses)
+            {
+                TodayPickup todayPickup = new TodayPickup();
+                todayPickup.Street = stop.Street;
+                todayPickup.City = stop.City;
+                todayPickup.State = stop.State;
+                todayPickup.Zip = stop.Zip;
+                todayPickup.Date = DateTime.Today;
+                _context.TodayPickups.Add(todayPickup);
+            }
+            _context.SaveChanges();
         }
 
         //public ActionResult RouteByDay(EmployeeDashboardViewModel data)
