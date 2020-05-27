@@ -1,0 +1,77 @@
+﻿@model TrashCollector.ViewModels.EmployeeDashboardViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="display:none">Index</h1>
+
+<div>
+    <h2 id="greeting">
+        Hello,
+        <span id="firstName">
+            @Html.DisplayFor(x => x.Employee.FirstName)!
+        </span>
+    </h2>
+    <div id="employeeId">
+        ID: @Html.DisplayFor(x => x.Employee.Id);
+    </div>
+
+    <hr />
+
+    <div id="employeeDashboard">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <h5>View route for: </h5>
+                    <form asp-action="ViewDate">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="calIcon-1">
+                                    <svg class="bi bi-calendar3" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                        <path fill-rule="evenodd" d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <input asp-for="RouteByDay" class="form-control" id="setDateRoute" name="GetRouteByDay" data-provide="datepicker" placeholder="Select a date" value="@Model.Today" type="text" aria-describedby="calIcon-1" />
+                        </div>
+                        <input type="submit" value="Go" class="btn btn-primary" /> 
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.css" />
