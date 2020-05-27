@@ -36,10 +36,24 @@
                                     </svg>
                                 </span>
                             </div>
-                            <input asp-for="RouteByDay" class="form-control" id="setDateRoute" name="GetRouteByDay" data-provide="datepicker" placeholder="Select a date" value="@Model.Today" type="text" aria-describedby="calIcon-1" />
+                            <input class="form-control" id="setDateRoute" name="GetRouteByDay" data-provide="datepicker" placeholder="Select a date" value="Today" type="text" aria-describedby="calIcon-1" />
                         </div>
                         <input type="submit" value="Go" class="btn btn-primary" /> 
                     </form>
+                </div>
+                <div id="stopsList">
+                    @foreach (var stop in @Model.Stops)
+                    {
+                        <div class="card">
+                            <div class="stopAddress">
+                                @Html.DisplayFor(x => stop.Street)
+                                @Html.DisplayFor(x => stop.City), @Html.DisplayFor(x => stop.State) @Html.DisplayFor(x => stop.Zip)
+                            </div>
+                            <div class="completeButton">
+                                <a class="btn btn-primary">Complete</a>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
 

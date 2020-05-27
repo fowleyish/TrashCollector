@@ -15,6 +15,7 @@ namespace TrashCollector.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<TodayPickup> TodayPickups { get; set; }
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

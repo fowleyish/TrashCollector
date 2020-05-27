@@ -82,6 +82,23 @@ namespace TrashCollector.Controllers
             }
         }
 
+        //public ActionResult RouteByDay(EmployeeDashboardViewModel data)
+        //{
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var user = _context.Employees.Where(x => x.Id == userId).SingleOrDefault();
+        //    var employee = _context.Employees.Where(x => x.Id == user.Id).SingleOrDefault();
+        //    string dayOfWeek = data.FocusDay.DayOfWeek.ToString();
+        //    DateTime focusDay = data.FocusDay;
+        //    int focusDayId = _context.Days.Where(x => x.DayOfWeek == dayOfWeek).Select(x => x.DayId).FirstOrDefault();
+        //    List<int> stopAddressIds = _context.Customers.Where(x => x.DayId == focusDayId).Select(x => x.AddressId).ToList();
+        //    List<Address> stopAddresses = new List<Address>();
+        //    foreach (var address in stopAddressIds)
+        //    {
+        //        stopAddresses.Add(_context.Addresses.Where(x => x.AddressId == address).FirstOrDefault());
+        //    }
+        //    employeeDashboardViewModel.Stops = stopAddresses.Where(x => x.Zip == employeeDashboardViewModel.Zip).ToList();
+        //    return View(employeeDashboardViewModel);
+        //}
 
 
 
@@ -101,11 +118,6 @@ namespace TrashCollector.Controllers
 
 
 
-        // GET: Employee
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: Employee/Details/5
         public ActionResult Details(int id)
