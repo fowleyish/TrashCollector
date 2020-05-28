@@ -15,7 +15,7 @@
         </span>
     </h2>
     <div id="employeeId">
-        ID: @Html.DisplayFor(x => x.Employee.Id);
+        Employee ID: @Html.DisplayFor(x => x.Employee.EmployeeId)
     </div>
 
     <hr />
@@ -36,7 +36,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <input class="form-control" id="setDateRoute" name="SelectedDay" data-provide="datepicker" placeholder="Select a date" value="Today" type="text" aria-describedby="calIcon-1" />
+                            <input class="form-control" id="setDateRoute" name="SelectedDay" data-provide="datepicker" placeholder="Select a date" value="Select a date" type="text" aria-describedby="calIcon-1" />
                         </div>
                         <input type="submit" value="Go" class="btn btn-primary" />
                     </form>

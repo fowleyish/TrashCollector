@@ -123,19 +123,22 @@ namespace TrashCollector.Controllers
             }
             else
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = _context.Employees.Where(x => x.Id == userId).SingleOrDefault();
+                var employee = _context.Employees.Where(x => x.Id == user.Id).SingleOrDefault();
+                EmployeeFutureDayDashboardViewModel employeeFutureDayDashboardViewModel = new EmployeeFutureDayDashboardViewModel();
+                employeeFutureDayDashboardViewModel.Employee = employee;
+                employeeFutureDayDashboardViewModel.SelectedDay = data.SelectedDay;
+                employeeFutureDayDashboardViewModel.Zip = _context.Addresses.Where(x => x.AddressId == employee.AddressId).Select(x => x.Zip).FirstOrDefault();
                 string dayOfWeek = data.SelectedDay.DayOfWeek.ToString();
                 int selectedDayId = _context.Days.Where(x => x.DayOfWeek == dayOfWeek).Select(x => x.DayId).FirstOrDefault();
                 List<int> customerAddressIds = _context.Customers.Where(x => x.DayId == selectedDayId).Select(x => x.AddressId).ToList();
                 List<Address> stopAddressesForDay = new List<Address>();
                 foreach (var stop in customerAddressIds)
                 {
-                    stopAddressesForDay.Add(_context.Addresses.Where(x => stop == x.AddressId && x.Zip == data.Zip).FirstOrDefault());
+                    stopAddressesForDay.Add(_context.Addresses.Where(x => stop == x.AddressId && x.Zip == employeeFutureDayDashboardViewModel.Zip).FirstOrDefault());
                 }
-                EmployeeFutureDayDashboardViewModel employeeFutureDayDashboardViewModel = new EmployeeFutureDayDashboardViewModel();
-                employeeFutureDayDashboardViewModel.Employee = data.Employee;
-                employeeFutureDayDashboardViewModel.SelectedDay = data.SelectedDay;
                 employeeFutureDayDashboardViewModel.Stops = stopAddressesForDay;
-                employeeFutureDayDashboardViewModel.Zip = data.Zip;
                 return View(employeeFutureDayDashboardViewModel);
             }
         }
