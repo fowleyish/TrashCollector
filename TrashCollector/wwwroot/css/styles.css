@@ -1,0 +1,81 @@
+﻿/* Employee views styling */
+
+#employeeDashboard .card {
+    padding: 10px;
+}
+
+#employeeDashboard form {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#employeeDashboard form .btn.btn-primary {
+    height: 38px;
+}
+
+#setDateRoute {
+    margin-right: 10px;
+}
+
+#stopsList {
+    height: 320px;
+    overflow-y: scroll;
+}
+
+#stopsList .card {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mapPlaceholderText {
+    font-size: 18pt;
+}
+
+/* General overrides */
+
+.btn.btn-primary {
+    background-color: #009118;
+    border-color: #016a12;
+}
+
+.btn.btn-primary:hover {
+    background-color: darkgreen;
+}
+
+/* Customer view styling */
+
+#customerDashboard .row {
+    margin-bottom: 1vw;
+}
+
+#dayOptions .row {
+    flex-flow: row nowrap;
+}
+
+#dayOptions .col {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#addressInfo {
+    margin-bottom: 1vw;
+}
+
+#customerDashboard .card {
+    height: 100%;
+}
+
+#pickupDayDeclared {
+    font-size: 22px;
+    margin-bottom: 1vw;
+}
