@@ -6,11 +6,11 @@ using TrashCollector.Models;
 
 namespace TrashCollector.ViewModels
 {
-    public class EmployeeDashboardViewModel
+    public class EmployeeFutureDayDashboardViewModel
     {
         public Employee Employee { get; set; }
         public string Zip { get; set; }
-        public List<TodayPickup> Stops { get; set; }
+        public List<Address> Stops { get; set; }
         public DateTime SelectedDay { get; set; }
     }
 }

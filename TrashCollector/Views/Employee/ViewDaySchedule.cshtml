@@ -1,7 +1,7 @@
-﻿@model TrashCollector.ViewModels.EmployeeDashboardViewModel
+﻿@model TrashCollector.ViewModels.EmployeeFutureDayDashboardViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ViewDaySchedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -44,13 +44,10 @@
                 <div id="stopsList">
                     @foreach (var stop in @Model.Stops)
                     {
-                        <div class="card" onclick="initMap(@stop.Street, @stop.City, @stop.State, @stop.Zip)">
+                        <div class="card">
                             <div class="stopAddress">
                                 @Html.DisplayFor(x => stop.Street)
                                 @Html.DisplayFor(x => stop.City), @Html.DisplayFor(x => stop.State) @Html.DisplayFor(x => stop.Zip)
-                            </div>
-                            <div class="completeButton">
-                                <a class="btn btn-primary" asp-action="CompleteStop" asp-route-id="@stop.PickupId">Complete</a>
                             </div>
                         </div>
                     }
@@ -58,31 +55,7 @@
             </div>
 
             <div class="col-md-8">
-                <div id="map" style="width:100%; height:400px; background-color:gray;">
-                    <div id="mapPlaceholderText">Interactive map coming soon!</div>
-                </div>
-                <script>
-                    function initMap(street, city, state, zip) {
-                        var address = `${street},${city}_${state}_${zip}`;
-                        var map = new google.maps.Map(document.getElementById('map'), {
-                            mapTypeId: google.maps.MapTypeId.ROADMAP,
-                            zoom: 6
-                        });
-                        var geocoder = new google.maps.geocoder;
-                        geocoder.geocode({
-                            'address': address
-                        },
-                        function (results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                new google.maps.Marker({
-                                    position: results[0].geometry.location,
-                                    map: map
-                                });
-                                map.setCenter(results[0].geometry.location);
-                            }
-                        });
-                    }
-                </script>
+
             </div>
 
 

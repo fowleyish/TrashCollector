@@ -107,8 +107,37 @@ namespace TrashCollector.Controllers
         {
             TodayPickup completedStop = _context.TodayPickups.Where(x => x.PickupId == id).FirstOrDefault();
             completedStop.Completed = true;
+            int customerAddressId = _context.Addresses.Where(x => x.Street == completedStop.Street && x.City == completedStop.City && x.State == completedStop.State && x.Zip == completedStop.Zip).Select(x => x.AddressId).FirstOrDefault();
+            Customer customerToCharge = _context.Customers.Where(x => x.AddressId == customerAddressId).FirstOrDefault();
+            Account accountToCharge = _context.Accounts.Where(x => x.AccountId == customerToCharge.AccountId).FirstOrDefault();
+            accountToCharge.Balance += 10.25;
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult ViewDaySchedule(EmployeeDashboardViewModel data)
+        {
+            if (data.SelectedDay == DateTime.Today)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                string dayOfWeek = data.SelectedDay.DayOfWeek.ToString();
+                int selectedDayId = _context.Days.Where(x => x.DayOfWeek == dayOfWeek).Select(x => x.DayId).FirstOrDefault();
+                List<int> customerAddressIds = _context.Customers.Where(x => x.DayId == selectedDayId).Select(x => x.AddressId).ToList();
+                List<Address> stopAddressesForDay = new List<Address>();
+                foreach (var stop in customerAddressIds)
+                {
+                    stopAddressesForDay.Add(_context.Addresses.Where(x => stop == x.AddressId && x.Zip == data.Zip).FirstOrDefault());
+                }
+                EmployeeFutureDayDashboardViewModel employeeFutureDayDashboardViewModel = new EmployeeFutureDayDashboardViewModel();
+                employeeFutureDayDashboardViewModel.Employee = data.Employee;
+                employeeFutureDayDashboardViewModel.SelectedDay = data.SelectedDay;
+                employeeFutureDayDashboardViewModel.Stops = stopAddressesForDay;
+                employeeFutureDayDashboardViewModel.Zip = data.Zip;
+                return View(employeeFutureDayDashboardViewModel);
+            }
         }
 
 
